@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "boardnotes"
+version = "0.1.0"
+description = "BoardNotes — whiteboard photo → clean structured digital notes. Perspective, cleanup, OCR, Markdown + PDF."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "Veliation AI" }]
+keywords = ["whiteboard", "ocr", "notes", "opencv", "fastapi", "cli"]
+dependencies = [
+  "opencv-python-headless>=4.8.0",
+  "Pillow>=10.0.0",
+  "numpy>=1.24.0",
+  "typer>=0.12.0",
+  "rich>=13.0.0",
+  "fastapi>=0.110.0",
+  "uvicorn[standard]>=0.27.0",
+  "python-multipart>=0.0.9",
+  "jinja2>=3.1.0",
+  "reportlab>=4.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0.0"]
+tesseract = ["pytesseract>=0.3.10"]
+easyocr = ["easyocr>=1.7.0"]
+trocr = ["transformers>=4.38.0", "torch>=2.0.0"]
+all-ocr = ["pytesseract>=0.3.10", "easyocr>=1.7.0"]
+
+[project.scripts]
+boardnotes = "boardnotes.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+boardnotes = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

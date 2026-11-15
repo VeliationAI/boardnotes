@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: boardnotes
+    runtime: python
+    plan: free
+    region: virginia
+    branch: main
+    buildCommand: pip install -r requirements.txt && pip install -e .
+    startCommand: uvicorn web.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.8"
+      - key: PYTHONPATH
+        value: src
+      - key: BOARDNOTES_LIGHTWEIGHT
+        value: "1"
+      - key: BOARDNOTES_OCR_BACKEND
+        value: mock
